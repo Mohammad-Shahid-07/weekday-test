@@ -27,7 +27,7 @@ const JobCard = ({
   return (
     <Card
       sx={{
-        minWidth: 355,
+        minWidth: 305,
         maxWidth: 325,
         fontFamily: "Lexend Variable",
         "&:hover": {
@@ -42,7 +42,6 @@ const JobCard = ({
           p: 2,
           pb: 0,
           backgroundColor: "white",
-         
         }}
       >
         <Paper
