@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Box,
   Button,
@@ -9,20 +10,54 @@ import {
   Typography,
 } from "@mui/material";
 import "./JobCard.css";
-const JobCard = () => {
+const JobCard = ({
+  companyName,
+  jdLink,
+  jdUid,
+  jobDetailsFromCompany,
+  jobRole,
+  location,
+  logoUrl,
+  maxExp,
+  maxJdSalary,
+  minExp,
+  minJdSalary,
+  salaryCurrencyCode,
+}) => {
   return (
-    <Box component="article" sx={{ p: 2, backgroundColor: "white" }}>
-      <Paper
-        variant="elevation"
-
-        elevation={5}
-        sx={{ color: "#666", fontSize: ".6rem" }}
-        className=""
+    <Card
+      sx={{
+        minWidth: 355,
+        maxWidth: 325,
+        fontFamily: "Lexend Variable",
+        "&:hover": {
+          scale: "1.02",
+        },
+        transition: "all 0.3s",
+      }}
+    >
+      <Box
+        component="article"
+        sx={{
+          p: 2,
+          pb: 0,
+          backgroundColor: "white",
+         
+        }}
       >
-        ⏳ Posted 3 days ago
-      </Paper>
-      <Card sx={{ minWidth: 275, maxWidth: 325 }}>
-        <CardContent>
+        <Paper
+          variant="elevation"
+          elevation={1}
+          sx={{ color: "#666", fontSize: ".6rem", width: "fit-content" }}
+        >
+          ⏳ Posted {new Date().toLocaleDateString()}
+        </Paper>
+        <CardContent
+          sx={{
+            p: 0,
+            pt: 2,
+          }}
+        >
           <Box
             sx={{
               display: "flex",
@@ -31,9 +66,9 @@ const JobCard = () => {
           >
             <CardMedia
               component="img"
-              src="https://via.placeholder.com/150"
+              src={logoUrl}
               alt="Job"
-              sx={{ width: 50, height: 70 }}
+              sx={{ width: 30, height: 40 }}
             />
             <Box>
               <Typography
@@ -42,42 +77,42 @@ const JobCard = () => {
                 sx={{
                   color: "#8b8b8b",
                   fontSize: "0.8rem",
-                  fontWeight: "600",
                   letterSpacing: "1px",
                 }}
               >
-                Company Name
+                {companyName}
               </Typography>
               <Typography
                 variant="body2"
                 component="p"
-                sx={{ fontSize: ".8rem", fontWeight: "400" }}
+                sx={{ fontSize: ".8rem", fontWeight: "300" }}
               >
-                Software Developer
+                {jobRole}
               </Typography>
-              <Typography
-                variant="body1"
-                component="p"
-                sx={{ fontSize: ".7rem", fontWeight: "500", color: "#000" }}
-              >
-                Pune
+              <Typography variant="caption" component="p">
+                {location}
               </Typography>
             </Box>
           </Box>
           <Typography
             variant="body1"
             component="p"
-            sx={{ fontSize: ".8rem", mt: 2, fontWeight: "400", color: "#555" }}
+            sx={{
+              fontSize: ".8rem",
+              mt: 0.5,
+              fontWeight: "300",
+              color: "rgb(77, 89, 106)",
+            }}
           >
-            Estimated Salary: ₹16 - 20 LPA ⚠️
+            Estimated Salary: {minJdSalary} - {maxJdSalary} {salaryCurrencyCode}
           </Typography>
           <Box>
             <Typography
               variant="h3"
               component="h3"
               sx={{
-                fontSize: "1.2rem",
-                mt: 2,
+                fontSize: ".9rem",
+                mt: 1,
                 fontWeight: "400",
               }}
             >
@@ -87,73 +122,141 @@ const JobCard = () => {
               variant="body1"
               component="p"
               sx={{
-                fontSize: ".7rem",
-                fontWeight: "500",
-                color: "#111",
+                fontSize: "13px",
+                fontWeight: "300",
+                lineHeight: "1.1",
                 mt: 1,
                 letterSpacing: "0.5px",
-
-                lineClamp: 3,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                display: "-webkit-box",
+                WebkitLineClamp: "11",
+                WebkitBoxOrient: "vertical",
               }}
             >
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Praesentium esse, reiciendis corrupti dignissimos, enim laborum id
-              quidem assumenda eum sequi ipsam perspiciatis omnis cum inventore
-              alias quo ducimus veritatis consectetur! Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Eaque, quae eveniet? Veritatis
-              nisi ipsum autem. Et vero consequuntur eum voluptatibus quo. Minus
-              delectus consectetur perspiciatis mollitia et, perferendis
-              quibusdam soluta! Lorem ipsum dolor sit amet consectetur,
-              adipisicing elit. Modi eum quasi placeat qui. Repellendus at,
-              perferendis non quia totam quae id modi provident quaerat aut
-              minima, unde quisquam, nisi excepturi!
+              {jobDetailsFromCompany}
             </Typography>
-            <CardActionArea>
-              <Typography
-                variant="body1"
-                component="p"
+            <Box
+              sx={{
+                position: "relative",
+              }}
+            >
+              <Box
                 sx={{
-                  fontSize: ".8rem",
-                  fontWeight: "500",
-                  color: "#007bff",
-                  mt: 2,
-                  letterSpacing: "0.5px",
-                  textAlign: "center",
                   background: "linear-gradient(#f2f2f248, white)",
                   pt: 5,
-                  translate: "0 -100%",
+                  width: "100%",
+                  height: "100%",
+                  display: "flex",
+                  position: "absolute",
+                  transition: "all 0.5s",
+                  top: -40,
                 }}
-              >
-                Show More
-              </Typography>
-
-              <Box > 
+              ></Box>
+              <CardActionArea>
+                <Typography
+                  variant="body1"
+                  component="p"
+                  sx={{
+                    fontSize: ".8rem",
+                    mt: 1,
+                    fontWeight: "500",
+                    color: "#007bff",
+                    letterSpacing: "0.5px",
+                    textAlign: "center",
+                  }}
+                >
+                  Show More
+                </Typography>
+              </CardActionArea>
+            </Box>
+            <Box>
+              <Box>
                 <Typography
                   variant="subtitle2"
                   sx={{ color: "#666", fontWeight: "500" }}
                 >
-                  Minimum Experience
+                  Skills Required
                 </Typography>
-                <Typography variant="subtitle2" sx={{ fontWeight: "500" }}>
-                  4 years
-                </Typography>
-                <Button
+                <Box
                   sx={{
-                    bgcolor: "rgb(85, 239, 196)",
-                    color: "black",
-                    p: 1.5,
-                    mt: 2,
-                    width: "100%",
+                    display: "flex",
+                    gap: 1,
+                    mt: 1,
+                    flexWrap: "wrap",
                   }}
                 >
-                  ⚡Easy Apply
-                </Button>
+                  <Typography
+                    sx={{
+                      bgcolor: "rgb(85, 239, 196)",
+                      fontSize: ".5rem",
+                      width: "fit-content",
+                      px: 0.5,
+                      fontWeight: "200",
+                      borderRadius: "5px",
+                      color: "blue",
+                    }}
+                    variant="caption"
+                  >
+                    React
+                  </Typography>
+                  <Typography
+                    sx={{
+                      bgcolor: "rgb(85, 239, 196)",
+                      fontSize: ".5rem",
+                      width: "fit-content",
+                      px: 0.5,
+
+                      fontWeight: "200",
+                      borderRadius: "5px",
+                      color: "blue",
+                    }}
+                    variant="caption"
+                  >
+                    Nodejs
+                  </Typography>
+                  <Typography
+                    sx={{
+                      bgcolor: "rgb(85, 239, 196)",
+                      fontSize: ".5rem",
+                      width: "fit-content",
+                      px: 0.5,
+
+                      fontWeight: "200",
+                      borderRadius: "5px",
+                      color: "blue",
+                    }}
+                    variant="caption"
+                  >
+                    Typescript
+                  </Typography>
+                </Box>
               </Box>
-            </CardActionArea>
+              <Typography variant="subtitle2" sx={{ fontWeight: "500" }}>
+                Experience
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                sx={{ color: "#666", fontWeight: "500" }}
+              >
+                {minExp} - {maxExp} years
+              </Typography>
+              <Button
+                sx={{
+                  bgcolor: "rgb(85, 239, 196)",
+                  color: "black",
+                  p: 1.5,
+                  mt: 2,
+                  width: "100%",
+                }}
+              >
+                ⚡Easy Apply
+              </Button>
+            </Box>
           </Box>
         </CardContent>
-      </Card>
-    </Box>
+      </Box>
+    </Card>
   );
 };
 
