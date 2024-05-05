@@ -1,0 +1,33 @@
+.posted {
+  font-size: 0.8rem;
+  width: fit-content;
+  color: #666;
+  padding: 0 0.5rem;
+  box-shadow: inset 0 0 0 1px #666;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.company {
+  display: flex;
+  gap: 5px;
+}
+.company img {
+  /* width: 30px; */
+  /* height: auto; */
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  /* aspect-ratio: 1/8; */
+}
+.company .post {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.card {
+  padding: 1rem;
+  border: 1px solid #666;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
