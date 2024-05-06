@@ -54,7 +54,16 @@ export default function Tags() {
 
   const handleCompanyChange = (event, newValues) => {
     Setcompany(newValues);
-    updateSearchParams("company", newValues);
+    console.log(newValues[0].length);
+    if (newValues[0].length === 0) {
+      setSearchParams((prevParams) => {
+        const params = new URLSearchParams(prevParams);
+        params.delete("company");
+        return params.toString();
+      });
+    } else {
+      updateSearchParams("company", newValues);
+    }
   };
   // Update search params
   const updateSearchParams = (paramName, selectedValues) => {

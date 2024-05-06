@@ -14,7 +14,12 @@ const Loader = () => {
   const dispatch = useDispatch();
   const { search } = useLocation();
   const data = useSelector((state) => state.jobs);
-
+  const isCompanyMatch = (searchTerm, companyName) => {
+    const normalizedSearchTerm = searchTerm.toLowerCase().trim();
+    const normalizedCompanyName = companyName.toLowerCase().trim();
+    
+    return normalizedCompanyName.includes(normalizedSearchTerm);
+  };
   const filteredData = useMemo(() => {
     const params = new URLSearchParams(search);
     const roles = params.getAll("roles");
@@ -22,7 +27,7 @@ const Loader = () => {
     const experience = params.getAll("experience").map(Number);
     const remote = params.getAll("remote");
     const salary = params.getAll("salary").map((s) => parseInt(s.slice(1), 10));
-    const company = params.getAll("company");
+    const company = params.getAll("company").map((c) => c.toLowerCase());
 
     return data.filter(
       (job) =>
@@ -32,7 +37,7 @@ const Loader = () => {
           experience.some((exp) => exp <= job.minExp)) &&
         (remote.length === 0 || remote.includes(job.location)) &&
         (salary.length === 0 || salary.some((sal) => sal <= job.minJdSalary)) &&
-        (company.length === 0 || company.includes(job.companyName)),
+        (company.length === 0 || company.some((comp) => isCompanyMatch(comp, job.companyName)))
     );
   }, [data, search]);
 
@@ -54,7 +59,7 @@ const Loader = () => {
 
   return (
     <>
-      {(filteredData.length === 0 && data?.length) ? (
+      {filteredData.length === 0 && data?.length ? (
         <Box
           sx={{
             display: "flex",
