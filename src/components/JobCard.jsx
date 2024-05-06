@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import {
   Box,
-  Button,
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
+  Link,
   Paper,
   Typography,
 } from "@mui/material";
@@ -15,10 +15,9 @@ const JobCard = ({
   companyName,
   jobDetailsFromCompany,
   jobRole,
+  jdLink,
   location,
   logoUrl,
-  maxExp,
-  maxJdSalary,
   minExp,
   minJdSalary,
   salaryCurrencyCode,
@@ -92,18 +91,20 @@ const JobCard = ({
               </Typography>
             </Box>
           </Box>
-          <Typography
-            variant="body1"
-            component="p"
-            sx={{
-              fontSize: ".8rem",
-              mt: 0.5,
-              fontWeight: "300",
-              color: "rgb(77, 89, 106)",
-            }}
-          >
-            Estimated Salary: {minJdSalary} - {maxJdSalary} {salaryCurrencyCode}
-          </Typography>
+          {minJdSalary && (
+            <Typography
+              variant="body1"
+              component="p"
+              sx={{
+                fontSize: ".8rem",
+                mt: 0.5,
+                fontWeight: "300",
+                color: "rgb(77, 89, 106)",
+              }}
+            >
+              Estimated Salary: {minJdSalary} {salaryCurrencyCode}
+            </Typography>
+          )}
           <Box>
             <Typography
               variant="h3"
@@ -170,87 +171,33 @@ const JobCard = ({
               </CardActionArea>
             </Box>
             <Box>
-              <Box>
-                <Typography
-                  variant="subtitle2"
-                  sx={{ color: "#666", fontWeight: "500" }}
-                >
-                  Skills Required
-                </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    gap: 1,
-                    mt: 1,
-                    flexWrap: "wrap",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      bgcolor: "rgb(85, 239, 196)",
-                      fontSize: ".5rem",
-                      width: "fit-content",
-                      px: 0.5,
-                      fontWeight: "200",
-                      borderRadius: "5px",
-                      color: "blue",
-                    }}
-                    variant="caption"
-                  >
-                    React
+              {minExp && (
+                <Box>
+                  <Typography variant="subtitle2" sx={{ fontWeight: "500" }}>
+                    Experience
                   </Typography>
                   <Typography
-                    sx={{
-                      bgcolor: "rgb(85, 239, 196)",
-                      fontSize: ".5rem",
-                      width: "fit-content",
-                      px: 0.5,
-
-                      fontWeight: "200",
-                      borderRadius: "5px",
-                      color: "blue",
-                    }}
-                    variant="caption"
+                    variant="subtitle2"
+                    sx={{ color: "#666", fontWeight: "500" }}
                   >
-                    Nodejs
-                  </Typography>
-                  <Typography
-                    sx={{
-                      bgcolor: "rgb(85, 239, 196)",
-                      fontSize: ".5rem",
-                      width: "fit-content",
-                      px: 0.5,
-
-                      fontWeight: "200",
-                      borderRadius: "5px",
-                      color: "blue",
-                    }}
-                    variant="caption"
-                  >
-                    Typescript
+                    ${minExp} years
                   </Typography>
                 </Box>
-              </Box>
-              <Typography variant="subtitle2" sx={{ fontWeight: "500" }}>
-                Experience
-              </Typography>
-              <Typography
-                variant="subtitle2"
-                sx={{ color: "#666", fontWeight: "500" }}
-              >
-                {minExp} - {maxExp} years
-              </Typography>
-              <Button
+              )}
+              <Link
                 sx={{
                   bgcolor: "rgb(85, 239, 196)",
                   color: "black",
+                  display: "block",
+                  textAlign: "center",
                   p: 1.5,
                   mt: 2,
                   width: "100%",
                 }}
+                href={jdLink}
               >
                 ⚡Easy Apply
-              </Button>
+              </Link>
             </Box>
           </Box>
         </CardContent>

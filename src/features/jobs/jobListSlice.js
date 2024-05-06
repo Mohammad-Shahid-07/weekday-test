@@ -11,7 +11,7 @@ export const fetchJobs = createAsyncThunk("fetchJobs", async (offset = 0) => {
   myHeaders.append("Content-Type", "application/json");
   const body = JSON.stringify({
     limit: 10,
-    offset, 
+    offset,
   });
 
   const requestOptions = {
