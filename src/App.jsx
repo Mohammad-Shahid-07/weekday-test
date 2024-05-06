@@ -1,12 +1,9 @@
 import "@fontsource-variable/lexend";
 import "./App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import JobCard from "./components/JobCard";
-import { useEffect } from "react";
 import { Box, Container } from "@mui/material";
 import Loader from "./components/Loader";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchJobs } from "./features/jobs/jobListSlice";
+import Tags from "./components/Filters";
 
 function App() {
   const theme = createTheme({
@@ -29,6 +26,7 @@ function App() {
             p: 2,
           }}
         >
+          <Tags />
           <Loader />
         </Box>
       </Container>

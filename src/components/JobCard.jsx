@@ -13,8 +13,6 @@ import "./JobCard.css";
 
 const JobCard = ({
   companyName,
-  jdLink,
-  jdUid,
   jobDetailsFromCompany,
   jobRole,
   location,
@@ -25,7 +23,6 @@ const JobCard = ({
   minJdSalary,
   salaryCurrencyCode,
 }) => {
- 
   return (
     <Card
       sx={{
@@ -153,7 +150,8 @@ const JobCard = ({
                   transition: "all 0.5s",
                   top: -40,
                 }}
-              ></Box>
+              />
+
               <CardActionArea>
                 <Typography
                   variant="body1"
