@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import "./JobCard.css";
+import { useState } from "react";
 
 const JobCard = ({
   companyName,
@@ -22,6 +23,11 @@ const JobCard = ({
   minJdSalary,
   salaryCurrencyCode,
 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
   return (
     <Card
       sx={{
@@ -126,11 +132,12 @@ const JobCard = ({
                 lineHeight: "1.1",
                 mt: 1,
                 letterSpacing: "0.5px",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                display: "-webkit-box",
-                WebkitLineClamp: "11",
+                overflow: isExpanded ? "unset" : "hidden", // Conditionally set overflow
+                textOverflow: isExpanded ? "unset" : "ellipsis", // Conditionally set textOverflow
+                display: isExpanded ? "block" : "-webkit-box", // Conditionally set display
+                WebkitLineClamp: isExpanded ? "unset" : "11", // Conditionally set WebkitLineClamp
                 WebkitBoxOrient: "vertical",
+                transition: "all 0.3s", // Add transition for smooth animation
               }}
             >
               {jobDetailsFromCompany}
@@ -140,33 +147,38 @@ const JobCard = ({
                 position: "relative",
               }}
             >
-              <Box
-                sx={{
-                  background: "linear-gradient(#f2f2f248, white)",
-                  pt: 5,
-                  width: "100%",
-                  height: "100%",
-                  display: "flex",
-                  position: "absolute",
-                  transition: "all 0.5s",
-                  top: -40,
-                }}
-              />
+              {!isExpanded && (
+                <Box
+                  sx={{
+                    background: "linear-gradient(#f2f2f248, white)",
+                    pt: 5,
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    position: "absolute",
+                    transition: "all 0.5s",
+                    top: -40,
+                  }}
+                />
+              )}
 
-              <CardActionArea>
+              <CardActionArea onClick={toggleExpand}>
                 <Typography
                   variant="body1"
                   component="p"
                   sx={{
                     fontSize: ".8rem",
                     mt: 1,
+                    border: "none",
                     fontWeight: "500",
                     color: "#007bff",
                     letterSpacing: "0.5px",
                     textAlign: "center",
+                    transition: "all 0.3s", // Add transition for smooth animation
+            
                   }}
                 >
-                  Show More
+                  {isExpanded ? "Show Less" : "Show More"}
                 </Typography>
               </CardActionArea>
             </Box>
