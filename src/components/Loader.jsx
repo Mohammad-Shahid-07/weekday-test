@@ -27,23 +27,23 @@ const Loader = () => {
   }, [inView]);
 
   const data = useSelector((state) => state.jobs);
-  console.log(data);
   const filteredData = useMemo(() => {
     const params = new URLSearchParams(search);
     const roles = params.getAll("roles");
     const employees = params.getAll("employees");
-    const experience = params.getAll("experience");
+    const experience = params.getAll("experience").map(Number); // Convert experience values to numbers
     const remote = params.getAll("remote");
     const salary = params.getAll("salary").map((s) => parseInt(s.slice(1))); // Convert salary strings to numbers
     const company = params.getAll("company");
-    console.log(roles, employees, experience, remote, salary, company);
+
     return data.filter((job) => {
       return (
         (roles.length === 0 || roles.includes(job.jobRole)) &&
         (employees.length === 0 || employees.includes(job.employeeType)) &&
-        (experience.length === 0 || experience <= job.minExp) &&
+        (experience.length === 0 ||
+          experience.some((exp) => exp <= job.minExp)) && // Check if any experience value is less than or equal to job's minExp
         (remote.length === 0 || remote.includes(job.location)) &&
-        (salary.length === 0 || salary < job.minJdSalary) &&
+        (salary.length === 0 || salary.some((sal) => sal <= job.minJdSalary)) && // Check if any salary value is less than or equal to job's minJdSalary
         (company.length === 0 || company.includes(job.companyName))
       );
     });
@@ -61,7 +61,7 @@ const Loader = () => {
             alignItems: "center",
             justifyContent: "center",
             height: 200,
-            mt: 10
+            mt: 10,
           }}
         >
           <img src={notFound} alt="" className="not-found-img" />
@@ -72,6 +72,17 @@ const Loader = () => {
           >
             No results found.
           </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              p: 2,
+            }}
+            ref={ref}
+          >
+            <CircularProgress disableShrink />
+          </Box>
         </Box>
       ) : (
         <Box
