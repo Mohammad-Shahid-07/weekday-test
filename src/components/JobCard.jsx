@@ -191,16 +191,22 @@ const JobCard = ({
                     variant="subtitle2"
                     sx={{ color: "#666", fontWeight: "500" }}
                   >
-                    ${minExp} years
+                    {minExp} years
                   </Typography>
                 </Box>
               )}
               <Link
+              underline="none"
                 sx={{
                   bgcolor: "rgb(85, 239, 196)",
                   color: "black",
                   display: "block",
                   textAlign: "center",
+                  outline: "none",
+                  "&:hover": {
+                    color: "black",
+                  },
+                  border: "none",
                   p: 1.5,
                   mt: 2,
                   width: "100%",
