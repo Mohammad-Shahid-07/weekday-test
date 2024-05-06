@@ -3,51 +3,27 @@ import { useInView } from "react-intersection-observer";
 import JobCard from "./JobCard";
 import { Box, CircularProgress } from "@mui/material";
 
+import { useDispatch, useSelector } from "react-redux";
+import { fetchJobs } from "../features/jobs/jobListSlice";
+
 const Loader = () => {
   const { ref, inView } = useInView();
-  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [offset, setOffset] = useState(10);
-
+  const [offset, setOffset] = useState(0);
+  const dispatch = useDispatch();
   useEffect(() => {
     if (isLoading) return;
     if (inView) {
       setIsLoading(true);
-
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-      const body = JSON.stringify({
-        limit: 10,
-        offset: offset,
-      });
-
-      const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body,
-      };
-      try {
-        setTimeout(() => {
-          fetch(
-            "https://api.weekday.technology/adhoc/getSampleJdJSON",
-            requestOptions,
-          )
-            .then((response) => response.json())
-            .then((result) => {
-              setData((prevData) => [...prevData, ...result.jdList]);
-              setOffset((prevOffset) => prevOffset + 10);
-              setIsLoading(false);
-            })
-            .catch((error) => {
-              console.error("Error fetching data:", error);
-            });
-        }, 500);
-      } catch (error) {
-        console.log(error);
-      }
+      setTimeout(() => {
+        dispatch(fetchJobs(offset));
+        setOffset((prevOffset) => prevOffset + 10);
+        setIsLoading(false);
+      }, 500);
     }
   }, [inView]);
-  console.log(data);
+
+  const data = useSelector((state) => state.jobs);
   return (
     <>
       <Box
@@ -56,6 +32,7 @@ const Loader = () => {
           flexWrap: "wrap",
           gap: 6,
           justifyContent: "center",
+
           p: 2,
         }}
       >
@@ -81,9 +58,10 @@ const Loader = () => {
       </Box>
       <Box
         sx={{
-          textAlign: "center",
-          mb: 5,
-          mt: 3,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          p: 2,
         }}
         ref={ref}
       >

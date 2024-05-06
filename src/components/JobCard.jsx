@@ -10,6 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import "./JobCard.css";
+
 const JobCard = ({
   companyName,
   jdLink,
@@ -24,6 +25,7 @@ const JobCard = ({
   minJdSalary,
   salaryCurrencyCode,
 }) => {
+ 
   return (
     <Card
       sx={{
