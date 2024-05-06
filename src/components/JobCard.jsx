@@ -24,7 +24,7 @@ const JobCard = ({
   salaryCurrencyCode,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
-
+  // Toggle expand
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
   };
@@ -132,12 +132,12 @@ const JobCard = ({
                 lineHeight: "1.1",
                 mt: 1,
                 letterSpacing: "0.5px",
-                overflow: isExpanded ? "unset" : "hidden", // Conditionally set overflow
-                textOverflow: isExpanded ? "unset" : "ellipsis", // Conditionally set textOverflow
-                display: isExpanded ? "block" : "-webkit-box", // Conditionally set display
-                WebkitLineClamp: isExpanded ? "unset" : "11", // Conditionally set WebkitLineClamp
+                overflow: isExpanded ? "unset" : "hidden",
+                textOverflow: isExpanded ? "unset" : "ellipsis",
+                display: isExpanded ? "block" : "-webkit-box",
+                WebkitLineClamp: isExpanded ? "unset" : "11",
                 WebkitBoxOrient: "vertical",
-                transition: "all 0.3s", // Add transition for smooth animation
+                transition: "all 0.3s",
               }}
             >
               {jobDetailsFromCompany}
@@ -174,8 +174,7 @@ const JobCard = ({
                     color: "#007bff",
                     letterSpacing: "0.5px",
                     textAlign: "center",
-                    transition: "all 0.3s", // Add transition for smooth animation
-            
+                    transition: "all 0.3s",
                   }}
                 >
                   {isExpanded ? "Show Less" : "Show More"}

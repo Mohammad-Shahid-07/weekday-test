@@ -16,7 +16,7 @@ export default function Tags() {
   const [searchParams, setSearchParams] = useSearchParams();
   useEffect(() => {
     const params = Object.fromEntries(searchParams.entries());
-
+    // Convert comma-separated strings to arrays
     setSelectedRoles(params.roles ? params.roles.split(",") : []);
     setSelectedEmployees(params.employees ? params.employees.split(",") : []);
     setSelectedExperience(
@@ -26,6 +26,7 @@ export default function Tags() {
     setSelectedSalary(params.salary ? params.salary.split(",") : []);
     Setcompany(params.company ? params.company : "");
   }, [searchParams]);
+  // Update search params when tags are selected
   const handleRoleChange = (event, newValues) => {
     setSelectedRoles(newValues);
     updateSearchParams("roles", newValues);
@@ -55,7 +56,7 @@ export default function Tags() {
     Setcompany(newValues);
     updateSearchParams("company", newValues);
   };
-
+  // Update search params
   const updateSearchParams = (paramName, selectedValues) => {
     const paramValue = selectedValues.join(",");
     setSearchParams((prevParams) => {
@@ -241,12 +242,7 @@ export default function Tags() {
   );
 }
 
-const roles = [
-  "frontend",
-  "ios",
-  "tech lead",
-  "backend",
-];
+const roles = ["frontend", "ios", "tech lead", "backend"];
 const employeeNumbers = ["1-10", "11-50", "51-200", "201-500", "500+"];
 const experiences = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 const remotes = ["remote", "onsite", "hybrid"];

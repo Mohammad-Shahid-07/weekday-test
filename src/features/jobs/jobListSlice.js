@@ -5,7 +5,7 @@ const initialState = {
   loading: false,
   error: null,
 };
-
+// created a thunk to fetch jobs from the API and added it to the jobListSlice
 export const fetchJobs = createAsyncThunk("fetchJobs", async (offset = 0) => {
   const myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
@@ -34,6 +34,7 @@ export const fetchJobs = createAsyncThunk("fetchJobs", async (offset = 0) => {
 export const jobListSlice = createSlice({
   name: "jobList",
   initialState,
+  // added extraReducers to handle the fetchJobs actions
   extraReducers: (builder) => {
     builder.addCase(fetchJobs.pending, (state) => {
       state.loading = true;
