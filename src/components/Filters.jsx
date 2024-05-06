@@ -98,7 +98,6 @@ export default function Tags() {
               color: "black",
               fontWeight: "bold",
             }}
-            shrink
           />
         )}
         renderTags={(value, getTagProps) =>
